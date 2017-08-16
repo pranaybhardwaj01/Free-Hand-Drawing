@@ -1,14 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Draw extends JPanel implements MouseListener,MouseMotionListener
+public class Draw extends JPanel implements MouseListener,MouseMotionListener,ActionListener
 {
  int xPressed,yPressed;
  int xReleased,yReleased;
+ private JButton clear;
  int xDragged,yDragged;
  public Draw()
  {
   setBounds(0, 0, 480, 500);
+  addMouseListener(this);
+  clear=new JButton("CLEAR");
+  add(clear);
+  clear.setBounds(540, 5, 100, 25);
+  clear.addActionListener(this);
   addMouseListener(this);
   addMouseMotionListener(this);
  }
@@ -18,6 +24,14 @@ public class Draw extends JPanel implements MouseListener,MouseMotionListener
   xPressed=xDragged;
   yPressed=yDragged;
  }
+ public void actionPerformed(ActionEvent e) 
+ {
+   if(e.getSource()==clear)
+   {
+     setOpaque(false);
+     repaint();
+   }
+  }
  public void mouseDragged(MouseEvent arg0)
  {
   Graphics g = getGraphics();
@@ -31,8 +45,6 @@ public class Draw extends JPanel implements MouseListener,MouseMotionListener
   xPressed = arg0.getX();
   yPressed = arg0.getY();
  }
- public void actionPerformed(ActionEvent e) 
- {}
  public void mouseMoved(MouseEvent arg0)
  {}
  public void mouseClicked(MouseEvent arg0)
